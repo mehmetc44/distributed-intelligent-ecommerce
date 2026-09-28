@@ -1,8 +1,20 @@
 <aside class="sidebar">
-  <h3 class="sidebar-title">Categories</h3>
+  <div class="sidebar-header">
+    <h3 class="sidebar-title">Kategoriler</h3>
+  </div>
   <ul class="category-list">
     <li *ngFor="let category of categories" class="category-item">
-      <a href="#" class="category-link">{{ category.name }}</a>
+      <a href="#" class="category-link">
+        {{ category.name }}
+        <span class="chevron" *ngIf="category.subCategories && category.subCategories.length > 0">›</span>
+      </a>
+
+      <!-- Subcategories Dropdown -->
+      <ul class="subcategory-list" *ngIf="category.subCategories && category.subCategories.length > 0">
+        <li *ngFor="let sub of category.subCategories" class="subcategory-item">
+          <a href="#" class="subcategory-link">{{ sub.name }}</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </aside>

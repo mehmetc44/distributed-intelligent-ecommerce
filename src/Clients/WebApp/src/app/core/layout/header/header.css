@@ -17,9 +17,28 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: -1px;
   color: var(--primary-color);
+  cursor: pointer;
+}
+
+.logo-svg {
+  color: var(--accent-color);
+  fill: rgba(249, 115, 22, 0.1);
+}
+
+.logo-text {
+  background: linear-gradient(to right, var(--primary-color), #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.logo-highlight {
+  color: var(--accent-color);
+  background: none;
+  -webkit-text-fill-color: var(--accent-color);
 }
 
 .search-bar {

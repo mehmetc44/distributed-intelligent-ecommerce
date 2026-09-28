@@ -6,11 +6,26 @@
   height: 100%;
 }
 
-.sidebar-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color, #eaeaea);
+}
+
+.header-icon {
   color: var(--primary-color);
+}
+
+.sidebar-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-dark, #1f2937);
+  margin: 0;
 }
 
 .category-list {
@@ -21,21 +36,86 @@
 
 .category-item {
   border-radius: var(--radius-md);
-  transition: background-color 0.2s;
+  transition: all 0.2s;
 }
 
 .category-link {
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 0.75rem 1rem;
   color: var(--text-main);
   font-weight: 500;
   border-radius: inherit;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.chevron {
+  font-size: 1.2rem;
+  line-height: 1;
+  opacity: 0.5;
+  transition: transform 0.2s;
 }
 
 .category-item:hover {
-  background-color: var(--primary-color);
+  background-color: var(--bg-color);
 }
 
 .category-item:hover .category-link {
-  color: white;
+  color: var(--primary-color);
+  padding-left: 1.25rem; /* Sağa doğru zarif bir kayma efekti */
+}
+
+.category-item:hover .chevron {
+  opacity: 1;
+}
+
+/* Subcategories */
+.category-item {
+  position: relative; /* For absolute positioning of subcategories */
+}
+
+.subcategory-list {
+  position: absolute;
+  top: 0;
+  left: 100%; /* Show to the right of the sidebar */
+  width: 220px;
+  background-color: var(--surface-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-10px);
+  transition: all 0.2s ease-in-out;
+  z-index: 100;
+  padding: 0.5rem 0;
+  list-style: none;
+}
+
+/* Show subcategories on hover of the parent item */
+.category-item:hover .subcategory-list {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.subcategory-item {
+  transition: background-color 0.2s;
+}
+
+.subcategory-link {
+  display: block;
+  padding: 0.5rem 1.5rem;
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.subcategory-item:hover {
+  background-color: var(--bg-color);
+}
+
+.subcategory-item:hover .subcategory-link {
+  color: var(--primary-color);
 }

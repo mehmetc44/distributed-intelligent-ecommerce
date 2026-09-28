@@ -1,0 +1,14 @@
+<section class="popular-categories-section">
+  <div class="section-header">
+    <h2 class="section-title">Popüler Kategoriler</h2>
+  </div>
+  
+  <div class="stories-container">
+    <div class="story-item" *ngFor="let category of categories">
+      <div class="story-ring">
+        <img [src]="category.imageUrl" [alt]="category.name" class="story-image">
+      </div>
+      <span class="story-name">{{ category.name }}</span>
+    </div>
+  </div>
+</section>
