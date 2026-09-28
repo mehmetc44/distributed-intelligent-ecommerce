@@ -60,7 +60,7 @@ button {
 
 /* Container */
 .container {
-  max-width: 1280px;
+  max-width: 1280px; /* Tekrar eski boyutuna getirdik ki kenarlardaki boşluklar korunsun */
   margin: 0 auto;
   padding: 0 1rem;
 }
