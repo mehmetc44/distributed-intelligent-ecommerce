@@ -1,7 +1,19 @@
+using Catalog.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // ServiceDefaults: OpenTelemetry, HealthChecks, ServiceDiscovery
 builder.AddServiceDefaults();
+
+// Add DbContext via Aspire with vector support
+builder.AddNpgsqlDbContext<CatalogDbContext>("catalog-db", configureDbContextOptions: options =>
+{
+    options.UseNpgsql(npgsqlOptions =>
+    {
+        npgsqlOptions.UseVector();
+    });
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

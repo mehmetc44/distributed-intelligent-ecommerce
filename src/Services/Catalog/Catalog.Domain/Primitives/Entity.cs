@@ -4,11 +4,11 @@ namespace Catalog.Domain.Primitives;
 /// Tüm entity'lerin türediği temel sınıf.
 /// Domain Event'leri toplar ve id yönetimini sağlar.
 /// </summary>
-public abstract class Entity
+public abstract class Entity<TId>
 {
     private readonly List<IDomainEvent> _domainEvents = [];
 
-    protected Entity(Guid id)
+    protected Entity(TId id)
     {
         Id = id;
     }
@@ -16,7 +16,7 @@ public abstract class Entity
     // EF Core için parametresiz constructor
     protected Entity() { }
 
-    public Guid Id { get; private set; }
+    public TId Id { get; private set; }
 
     public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
@@ -29,4 +29,10 @@ public abstract class Entity
     {
         _domainEvents.Clear();
     }
+}
+
+public abstract class Entity : Entity<Guid>
+{
+    protected Entity(Guid id) : base(id) { }
+    protected Entity() { }
 }
