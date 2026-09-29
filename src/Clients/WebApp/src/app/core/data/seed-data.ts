@@ -14,6 +14,19 @@ export interface SliderItem {
   linkText: string;
 }
 
+export interface Product {
+  id: number;
+  name: string;
+  category: string;
+  price: number;
+  oldPrice: number | null;
+  rating: number;
+  reviews: number;
+  imageUrl: string;
+  images: string[];
+  isNew: boolean;
+}
+
 export const CATEGORIES: Category[] = [
   { 
     id: 1, 
@@ -77,5 +90,73 @@ export const SLIDER_ITEMS: SliderItem[] = [
     title: 'Spor ve Outdoor Ekipmanları',
     description: 'Aksiyon dolu anlar için ihtiyacınız olan her şey.',
     linkText: 'Keşfet'
+  }
+];
+
+export const FEATURED_PRODUCTS: Product[] = [
+  {
+    id: 11,
+    name: 'Pasage Unisex T-shirt Siyah',
+    category: 'T-Shirt',
+    price: 195.00,
+    oldPrice: 229.00,
+    rating: 3.30,
+    reviews: 603,
+    imageUrl: 'https://cdn.dsmcdn.com/mnresize/400/600/ty1590/prod/QC/20241021/20/86463b2a-8060-38b8-a04a-f4d64ecb1f1b/1_org_zoom.jpg',
+    images: [
+      'https://cdn.dsmcdn.com/mnresize/400/600/ty1590/prod/QC/20241021/20/86463b2a-8060-38b8-a04a-f4d64ecb1f1b/1_org_zoom.jpg',
+      'https://cdn.dsmcdn.com/mnresize/400/600/ty1591/prod/QC/20241021/20/ab07c170-af85-3bea-8367-45c40e2c1339/1_org_zoom.jpg',
+      'https://cdn.dsmcdn.com/mnresize/400/600/ty1590/prod/QC/20241021/20/df63f708-8fc9-313d-aacc-62464600d338/1_org_zoom.jpg',
+      'https://cdn.dsmcdn.com/mnresize/400/600/ty1591/prod/QC/20241021/20/7a7c0bde-6d48-3292-b44c-68f910a92cb7/1_org_zoom.jpg'
+    ],
+    isNew: true
+  },
+  {
+    id: 12,
+    name: 'geenz manifacture Rio Siyah Yüksek Bel Dar Paça Skinny Power Likralı Kot Pantalon',
+    category: 'Pantolon',
+    price: 654.09,
+    oldPrice: null,
+    rating: 3.80,
+    reviews: 633,
+    imageUrl: 'https://cdn.dsmcdn.com/mnresize/400/600/ty1600/prod/QC/20241112/00/dcd83fa8-f39e-3c12-89a4-5ed0220941b5/1_org_zoom.jpg',
+    images: [
+      'https://cdn.dsmcdn.com/mnresize/400/600/ty1600/prod/QC/20241112/00/dcd83fa8-f39e-3c12-89a4-5ed0220941b5/1_org_zoom.jpg',
+      'https://cdn.dsmcdn.com/mnresize/400/600/ty1599/prod/QC/20241112/00/b3cd06e4-e3b6-3fc7-9a0b-5850ac041b7d/1_org_zoom.jpg'
+    ],
+    isNew: false
+  },
+  {
+    id: 13,
+    name: 'Dilvin 3683 Basic T-Shirt-Beyaz',
+    category: 'T-Shirt',
+    price: 541.49,
+    oldPrice: 599.90,
+    rating: 4.20,
+    reviews: 6205,
+    imageUrl: 'https://cdn.dsmcdn.com/mnresize/400/600/ty1671/prod/QC/20250503/07/8068ded6-4c72-3580-b1e7-a834da08db63/1_org_zoom.jpg',
+    images: [
+      'https://cdn.dsmcdn.com/mnresize/400/600/ty1671/prod/QC/20250503/07/8068ded6-4c72-3580-b1e7-a834da08db63/1_org_zoom.jpg',
+      'https://cdn.dsmcdn.com/mnresize/400/600/ty1672/prod/QC/20250503/07/27c4c958-8701-34cc-9454-d4219829f02c/1_org_zoom.jpg',
+      'https://cdn.dsmcdn.com/mnresize/400/600/ty1671/prod/QC/20250503/07/18380c1a-7cc1-3887-be9a-9875712ccaea/1_org_zoom.jpg',
+      'https://cdn.dsmcdn.com/mnresize/400/600/ty1673/prod/QC/20250503/07/e25c2397-3813-39f8-a5dd-f970bfa86524/1_org_zoom.jpg',
+      'https://cdn.dsmcdn.com/mnresize/400/600/ty1672/prod/QC/20250503/07/9774c052-7825-3875-aeac-b04880147d79/1_org_zoom.jpg'
+    ],
+    isNew: false
+  },
+  {
+    id: 14,
+    name: 'Genel Markalar Minimal Kalp Baskılı Siyah Oversize Tshirt',
+    category: 'T-Shirt',
+    price: 163.27,
+    oldPrice: 199.99,
+    rating: 3.80,
+    reviews: 1123,
+    imageUrl: 'https://cdn.dsmcdn.com/mnresize/400/600/ty1522/product/media/images/prod/QC/20240903/19/e342be81-b304-3ad5-848b-016649ac153f/1_org_zoom.jpg',
+    images: [
+      'https://cdn.dsmcdn.com/mnresize/400/600/ty1522/product/media/images/prod/QC/20240903/19/e342be81-b304-3ad5-848b-016649ac153f/1_org_zoom.jpg',
+      'https://cdn.dsmcdn.com/mnresize/400/600/ty1521/product/media/images/prod/QC/20240903/19/b98d2002-0c0d-31e8-a5f2-27000512353b/1_org_zoom.jpg'
+    ],
+    isNew: true
   }
 ];

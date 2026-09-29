@@ -48,8 +48,10 @@
 
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  /* Daha dar ve zarif kartlar */
+  gap: 1.5rem;
+  /* Kartlar arası boşluğu biraz kıstık */
 }
 
 /* Product Card */
@@ -62,12 +64,12 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
-  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.05));
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
 }
 
 .product-card:hover {
   transform: translateY(-8px);
-  box-shadow: var(--shadow-lg, 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04));
+  box-shadow: var(--shadow-lg, 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04));
   border-color: transparent;
 }
 
@@ -91,29 +93,30 @@
 }
 
 .badge-new {
-  background-color: #10b981; /* Emerald */
+  background-color: #10b981;
+  /* Emerald */
 }
 
 .badge-discount {
-  background-color: #ef4444; /* Red */
+  background-color: #ef4444;
+  /* Red */
 }
 
 .card-image-wrapper {
   position: relative;
   width: 100%;
-  height: 240px;
+  aspect-ratio: 3/4;
   overflow: hidden;
   background-color: #f8fafc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
+  line-height: 0;
+  font-size: 0;
 }
 
 .product-image {
+  display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -144,7 +147,7 @@
   align-items: center;
   justify-content: center;
   color: var(--text-main, #333);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: all 0.2s;
 }
 
@@ -154,30 +157,31 @@
 }
 
 .card-content {
-  padding: 1.5rem;
+  padding: 1rem;
+  /* İç boşluğu kıstık */
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
 .product-category {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: var(--text-muted, #94a3b8);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
 }
 
 .product-name {
-  font-size: 1.05rem;
+  font-size: 0.95rem;
+  /* Yazıyı biraz küçülttük */
   font-weight: 700;
   color: var(--text-dark, #1e293b);
-  margin: 0 0 1rem 0;
-  line-height: 1.5;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.4;
   /* Truncate to 2 lines */
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   flex: 1;
@@ -228,7 +232,8 @@
 }
 
 .product-price {
-  font-size: 1.4rem;
+  font-size: 1.25rem;
+  /* Fiyat puntoları kartın boyutuna uygun hale getirildi */
   font-weight: 800;
   color: var(--primary-color, #4F46E5);
 }
@@ -237,17 +242,43 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
+  gap: 0.4rem;
+  padding: 0.6rem 1rem;
   background-color: var(--bg-color, #f8fafc);
   border-radius: var(--radius-md, 8px);
   color: var(--text-main, #334155);
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   transition: all 0.2s;
 }
 
 .add-to-cart-btn:hover {
   background-color: var(--accent-color, #f97316);
   color: #fff;
+}
+
+/* Load More Button */
+.load-more-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 3.5rem;
+}
+
+.load-more-btn {
+  padding: 0.9rem 3rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--primary-color, #4F46E5);
+  background-color: transparent;
+  border: 2px solid var(--primary-color, #4F46E5);
+  border-radius: var(--radius-md, 8px);
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.load-more-btn:hover {
+  background-color: var(--primary-color, #4F46E5);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
 }
