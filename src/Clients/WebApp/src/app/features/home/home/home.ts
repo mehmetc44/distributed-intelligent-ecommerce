@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { Sidebar } from '../sidebar/sidebar';
 import { Slider } from '../slider/slider';
 import { PopularCategories } from '../popular-categories/popular-categories';
+import { FeaturedProducts } from '../featured-products/featured-products';
 
 @Component({
   selector: 'app-home',
-  imports: [Sidebar, Slider, PopularCategories],
+  imports: [Slider, PopularCategories, FeaturedProducts],
   templateUrl: './home.html',
   styleUrls: ['./home.css']
 })
