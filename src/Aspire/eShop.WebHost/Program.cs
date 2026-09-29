@@ -12,4 +12,11 @@ var webApp = builder.AddExecutable("webapp", "npm", "../../Clients/WebApp", "run
                     .WithHttpEndpoint(targetPort: 4200) // Sadece targetPort veriyoruz, Aspire kendi proxy portunu rastgele atayacak
                     .WithExternalHttpEndpoints();
 
+var apiGateway = builder.AddProject("api-gateway", "../../ApiGateway/ApiGateway.csproj");
+apiGateway.WithReference(catalogApi);
+apiGateway.WithReference(stockApi);
+apiGateway.WithReference(paymentApi);
+apiGateway.WithHttpEndpoint(targetPort: 8080) // Gateway'in dinleyeceği port
+          .WithExternalHttpEndpoints();
+
 builder.Build().Run();

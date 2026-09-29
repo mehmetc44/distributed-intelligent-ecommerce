@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ApiGateway/ApiGateway.csproj" />
+  </Folder>
+  <Folder Name="/src/Aspire/">
+    <Project Path="src/Aspire/eShop.ServiceDefaults/eShop.ServiceDefaults.csproj" />
+    <Project Path="src/Aspire/eShop.WebHost/eShop.WebHost.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/">
+    <Project Path="src/Services/Catalog.API/Catalog.API.csproj" />
+    <Project Path="src/Services/Catalog.Application/Catalog.Application.csproj" />
+    <Project Path="src/Services/Catalog.Domain/Catalog.Domain.csproj" />
+    <Project Path="src/Services/Catalog.Infrastructure/Catalog.Infrastructure.csproj" />
+    <Project Path="src/Services/Payment.API/Payment.API.csproj" />
+    <Project Path="src/Services/Stock.API/Stock.API.csproj" />
+  </Folder>
+</Solution>
