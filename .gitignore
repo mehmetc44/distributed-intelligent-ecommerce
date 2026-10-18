@@ -486,3 +486,24 @@ $RECYCLE.BIN/
 # Environments
 .env
 .env.*
+!.env.example
+!.env.*.example
+
+# Machine Learning models & weights (large binary files, not tracked)
+models/
+/models/
+*.safetensors
+*.bin
+*.onnx
+*.pt
+*.pth
+*.h5
+*.gguf
+
+# Python virtual environments & bytecode
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class

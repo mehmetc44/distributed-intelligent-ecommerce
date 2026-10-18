@@ -4,7 +4,7 @@
   </Folder>
   <Folder Name="/src/Aspire/">
     <Project Path="src/Aspire/eShop.ServiceDefaults/eShop.ServiceDefaults.csproj" />
-    <Project Path="src/Aspire/eShop.WebHost/eShop.WebHost.csproj" />
+    <Project Path="src/Aspire/eShop.AppHost/eShop.AppHost.csproj" />
   </Folder>
   <Folder Name="/src/Services/">
     <Project Path="src/Services/Payment.API/Payment.API.csproj" />

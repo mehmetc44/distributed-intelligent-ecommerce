@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Aspire.AppHost.Sdk/13.6.1">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,17 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Dashboard.Sdk.linux-x64" Version="13.5.4" />
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="13.5.4" />
-    <PackageReference Include="Aspire.Hosting.Orchestration.linux-x64" Version="13.5.4" />
-    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="13.5.4" />
     <PackageReference Include="DotNetEnv" Version="3.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Services\Catalog.API\Catalog.API.csproj" />
+    <ProjectReference Include="..\..\Services\Catalog\Catalog.API\Catalog.API.csproj" />
     <ProjectReference Include="..\..\Services\Stock.API\Stock.API.csproj" />
     <ProjectReference Include="..\..\Services\Payment.API\Payment.API.csproj" />
+    <ProjectReference Include="..\..\ApiGateway\ApiGateway.csproj" />
+  </ItemGroup>
+
+  <!-- .env dosyası çıktı klasörüne kopyalanır; böylece AppHost hangi dizinden başlatılırsa başlatılsın bulunur. -->
+  <ItemGroup>
+    <None Include=".env" CopyToOutputDirectory="PreserveNewest" Condition="Exists('.env')" />
   </ItemGroup>
 
 </Project>

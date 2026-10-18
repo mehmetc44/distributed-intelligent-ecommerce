@@ -1,0 +1,17 @@
+[project]
+name = "embedding-service"
+version = "0.1.0"
+description = "Text -> embedding service (TEI-compatible /embed contract)"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "torch>=2.5",
+    # gte-multilingual (NewModel) remote code is written against transformers 4.x
+    "transformers>=4.48,<5",
+    "sentence-transformers>=3.4,<6",
+    "pydantic-settings>=2.16.0",
+]
+
+[dependency-groups]
+dev = ["httpx>=0.27"]

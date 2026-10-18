@@ -1,6 +1,7 @@
 using DotNetEnv;
 
-Env.Load();
+// .env, csproj tarafından çıktı klasörüne kopyalanır (aspire run'ın çalışma dizininden bağımsız)
+Env.Load(Path.Combine(AppContext.BaseDirectory, ".env"));
 
 var builder = DistributedApplication.CreateBuilder(args);
 
