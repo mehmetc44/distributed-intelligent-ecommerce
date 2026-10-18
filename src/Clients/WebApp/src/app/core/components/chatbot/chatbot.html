@@ -1,0 +1,168 @@
+<!-- Floating Chatbot Widget Container -->
+<div class="chatbot-container" id="agentic-chatbot-widget">
+
+  <!-- Chat Window (Expandable Modal) -->
+  <div 
+    class="chat-window" 
+    id="chatbot-window" 
+    [class.chat-window--open]="isOpen"
+    role="dialog"
+    aria-label="Agentic AI Alışveriş Asistanı"
+  >
+    <!-- Header -->
+    <header class="chat-header">
+      <div class="chat-header-info">
+        <div class="ai-avatar-glow">
+          <svg class="ai-sparkle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/>
+          </svg>
+          <span class="online-dot" title="Çevrimiçi"></span>
+        </div>
+        <div class="header-titles">
+          <h3 class="header-title">Agentic AI</h3>
+          <span class="header-status">Akıllı Alışveriş Asistanı</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button 
+          type="button" 
+          class="header-icon-btn" 
+          id="chatbot-close-btn"
+          (click)="toggleChat()" 
+          title="Kapat"
+          aria-label="Sohbeti kapat"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Messages Body -->
+    <div class="chat-body" #messagesContainer id="chatbot-messages-container">
+      <div class="message-feed">
+        @for (msg of messages; track msg.id) {
+          <div class="message-row" [class.message-row--user]="msg.sender === 'user'">
+            @if (msg.sender === 'bot') {
+              <div class="bot-bubble-avatar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 8V4m0 0L9 6m3-2l3 2M4 14v-2a8 8 0 0116 0v2m-3 7H7a2 2 0 01-2-2v-3a2 2 0 012-2h10a2 2 0 012 2v3a2 2 0 01-2 2z"/>
+                  <circle cx="9" cy="14" r="1"/>
+                  <circle cx="15" cy="14" r="1"/>
+                </svg>
+              </div>
+            }
+
+            <div class="message-content">
+              <div class="message-bubble" [class.message-bubble--user]="msg.sender === 'user'">
+                <p class="message-text">{{ msg.text }}</p>
+                <span class="message-time">{{ msg.time }}</span>
+              </div>
+
+              <!-- Suggestion Chips (If present) -->
+              @if (msg.suggestions && msg.suggestions.length > 0) {
+                <div class="suggestions-wrapper">
+                  @for (sug of msg.suggestions; track sug) {
+                    <button 
+                      type="button" 
+                      class="suggestion-chip"
+                      (click)="selectSuggestion(sug)"
+                    >
+                      {{ sug }}
+                    </button>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Typing Indicator -->
+        @if (isTyping) {
+          <div class="message-row">
+            <div class="bot-bubble-avatar">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 8V4m0 0L9 6m3-2l3 2M4 14v-2a8 8 0 0116 0v2m-3 7H7a2 2 0 01-2-2v-3a2 2 0 012-2h10a2 2 0 012 2v3a2 2 0 01-2 2z"/>
+              </svg>
+            </div>
+            <div class="typing-bubble">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <!-- Input Footer -->
+    <footer class="chat-footer">
+      <form class="chat-input-form" (ngSubmit)="sendMessage()">
+        <input 
+          type="text" 
+          class="chat-input" 
+          id="chatbot-input"
+          placeholder="Bir ürün sor veya bütçeni yaz..." 
+          [(ngModel)]="userMessage" 
+          name="userMessage"
+          autocomplete="off"
+        />
+        <button 
+          type="submit" 
+          class="chat-send-btn" 
+          id="chatbot-send-btn"
+          [disabled]="!userMessage.trim() || isTyping"
+          aria-label="Mesaj Gönder"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </form>
+      <div class="chat-footer-badge">
+        <span>✨ Trendyol Embedding & Semantik Arama Destekli</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Floating Launcher Button -->
+  <button 
+    type="button" 
+    class="chatbot-launcher-btn" 
+    id="chatbot-launcher-btn"
+    (click)="toggleChat()" 
+    [class.chatbot-launcher-btn--active]="isOpen"
+    aria-label="Yapay Zeka Asistanı ile Sohbet Et"
+  >
+    <!-- Badge if unread -->
+    @if (hasUnread && !isOpen) {
+      <span class="launcher-pulse-badge" id="chatbot-notification-badge">
+        <span class="ping-circle"></span>
+        <span class="solid-dot"></span>
+      </span>
+    }
+
+    <!-- Chat icon when closed -->
+    @if (!isOpen) {
+      <div class="launcher-icon-wrap">
+        <svg class="launcher-chat-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <svg class="launcher-sparkle-svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0l2.5 8.5L23 11l-8.5 2.5L12 22l-2.5-8.5L1 11l8.5-2.5z"/>
+        </svg>
+      </div>
+    } @else {
+      <!-- Close icon when open -->
+      <svg class="launcher-close-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    }
+  </button>
+
+</div>

@@ -25,5 +25,19 @@ var webApp = builder.AddExecutable("webapp", "npm", "../../Clients/WebApp", "run
                     .WithHttpEndpoint(targetPort: 4200) // Sadece targetPort veriyoruz, Aspire kendi proxy portunu rastgele atayacak
                     .WithExternalHttpEndpoints();
 
+// Python Embedding Servisi (uv ile çalıştırılır)
+var embeddingDir = Path.GetFullPath(Path.Combine(builder.AppHostDirectory, "../../Services/Embedding.API"));
+
+var embeddingApi = builder.AddExecutable(
+        "embedding-api",
+        "uv",
+        embeddingDir,
+        "run", "--directory", embeddingDir, "python", "-m", "uvicorn", "app.main:app", "--port", "8000"
+    )
+    .WithHttpEndpoint(targetPort: 8000, name: "http")
+    .WithExternalHttpEndpoints();
+
+catalogApi.WithReference(embeddingApi.GetEndpoint("http"));
+
 
 builder.Build().Run();
