@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FEATURED_PRODUCTS, Product } from '../../../core/data/seed-data';
 
 @Component({
   selector: 'app-featured-products',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './featured-products.html',
   styleUrls: ['./featured-products.css']
 })

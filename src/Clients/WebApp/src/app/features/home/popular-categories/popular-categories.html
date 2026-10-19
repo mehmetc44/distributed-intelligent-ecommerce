@@ -4,7 +4,13 @@
   </div>
   
   <div class="stories-container">
-    <div class="story-item" *ngFor="let category of categories">
+    <div 
+      class="story-item" 
+      *ngFor="let category of categories"
+      [routerLink]="['/products']"
+      [queryParams]="{ category: category.name }"
+      style="cursor: pointer;"
+    >
       <div class="story-ring">
         <img [src]="category.imageUrl" [alt]="category.name" class="story-image">
       </div>

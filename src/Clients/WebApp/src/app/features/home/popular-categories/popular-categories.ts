@@ -1,11 +1,12 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { Home as HomeService } from '../../../core/services/home';
 import { Category } from '../../../core/data/seed-data';
 
 @Component({
   selector: 'app-popular-categories',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './popular-categories.html',
   styleUrls: ['./popular-categories.css']
 })
