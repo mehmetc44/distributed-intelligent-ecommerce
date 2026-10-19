@@ -1,9 +1,14 @@
 export interface Category {
   id: number;
   name: string;
+  parentId?: number | null;
+  level?: number;
+  fullPath?: string;
   icon?: string;
+  iconUrl?: string;
+  iconSvg?: string;
   imageUrl?: string;
-  subCategories?: { id: number, name: string }[];
+  subCategories?: Category[];
 }
 
 export interface SliderItem {
@@ -29,44 +34,403 @@ export interface Product {
 
 export const CATEGORIES: Category[] = [
   { 
-    id: 1, 
-    name: 'Elektronik',
-    imageUrl: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?q=80&w=200&auto=format&fit=crop',
+    id: 4, 
+    name: 'Kadın',
+    iconUrl: 'https://cdn.jsdelivr.net/npm/@tabler/icons@latest/icons/outline/woman.svg',
+    imageUrl: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=300&auto=format&fit=crop',
     subCategories: [
-      { id: 101, name: 'Dizüstü & Masaüstü' },
-      { id: 102, name: 'Telefon & Tabletler' },
-      { id: 103, name: 'Fotoğraf & Kamera' },
-      { id: 104, name: 'Ses & Kulaklık' }
+      {
+        id: 30,
+        name: 'Giyim',
+        subCategories: [
+          { id: 259, name: 'Elbise' },
+          { id: 251, name: 'Tişört' },
+          { id: 282, name: 'Kot Pantolon' },
+          { id: 326, name: 'Etek' },
+          { id: 203, name: 'Ceket & Yelek' },
+          { id: 304, name: 'Sweatshirt' }
+        ]
+      },
+      {
+        id: 50,
+        name: 'Aksesuar & Çanta',
+        subCategories: [
+          { id: 501, name: 'Omuz Çantası' },
+          { id: 502, name: 'Kol Saati' },
+          { id: 503, name: 'Güneş Gözlüğü' },
+          { id: 504, name: 'Cüzdan' },
+          { id: 505, name: 'Takı & Mücevher' }
+        ]
+      },
+      {
+        id: 117,
+        name: 'Kozmetik',
+        subCategories: [
+          { id: 601, name: 'Kadın Parfüm' },
+          { id: 602, name: 'Ruj & Dudak Parlatıcı' },
+          { id: 603, name: 'Yüz Serumu' },
+          { id: 604, name: 'Göz Makyajı' }
+        ]
+      },
+      {
+        id: 96,
+        name: 'Ayakkabı',
+        subCategories: [
+          { id: 701, name: 'Topuklu Ayakkabı' },
+          { id: 702, name: 'Sneaker' },
+          { id: 703, name: 'Babet' },
+          { id: 704, name: 'Sandalet' },
+          { id: 705, name: 'Bot & Çizme' }
+        ]
+      },
+      {
+        id: 161,
+        name: 'Ev & İç Giyim',
+        subCategories: [
+          { id: 801, name: 'Pijama Takımı' },
+          { id: 802, name: 'Gecelik' },
+          { id: 803, name: 'Sütyen' },
+          { id: 804, name: 'İç Çamaşırı Takımı' }
+        ]
+      },
+      {
+        id: 121,
+        name: 'Spor & Outdoor',
+        subCategories: [
+          { id: 901, name: 'Spor Tayt' },
+          { id: 902, name: 'Spor Sütyeni' },
+          { id: 903, name: 'Eşofman Takımı' },
+          { id: 904, name: 'Koşu Ayakkabısı' }
+        ]
+      }
+    ]
+  },
+  { 
+    id: 6, 
+    name: 'Erkek',
+    iconUrl: 'https://cdn.jsdelivr.net/npm/@tabler/icons@latest/icons/outline/man.svg',
+    imageUrl: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=300&auto=format&fit=crop',
+    subCategories: [
+      {
+        id: 61,
+        name: 'Giyim',
+        subCategories: [
+          { id: 611, name: 'Tişört' },
+          { id: 612, name: 'Gömlek' },
+          { id: 613, name: 'Kot Pantolon' },
+          { id: 614, name: 'Ceket & Blazer' },
+          { id: 615, name: 'Sweatshirt' }
+        ]
+      },
+      {
+        id: 62,
+        name: 'Ayakkabı',
+        subCategories: [
+          { id: 621, name: 'Sneaker' },
+          { id: 622, name: 'Klasik Ayakkabı' },
+          { id: 623, name: 'Bot' },
+          { id: 624, name: 'Spor Ayakkabı' }
+        ]
+      },
+      {
+        id: 63,
+        name: 'Aksesuar',
+        subCategories: [
+          { id: 631, name: 'Kol Saati' },
+          { id: 632, name: 'Cüzdan & Kartlık' },
+          { id: 633, name: 'Kemer' },
+          { id: 634, name: 'Güneş Gözlüğü' }
+        ]
+      }
+    ]
+  },
+  { 
+    id: 1, 
+    name: 'Anne & Çocuk',
+    iconUrl: 'https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/baby.svg',
+    imageUrl: 'https://images.unsplash.com/photo-1519689680058-324335c77eba?q=80&w=300&auto=format&fit=crop',
+    subCategories: [
+      {
+        id: 11,
+        name: 'Bebek Bakım',
+        subCategories: [
+          { id: 111, name: 'Bebek Bezi' },
+          { id: 112, name: 'Islak Mendil' },
+          { id: 113, name: 'Biberon & Emzik' },
+          { id: 114, name: 'Bebek Şampuanı' }
+        ]
+      },
+      {
+        id: 12,
+        name: 'Bebek Giyim',
+        subCategories: [
+          { id: 121, name: 'Zıbın & Body' },
+          { id: 122, name: 'Tulum' },
+          { id: 123, name: 'Bebek Pijama' }
+        ]
+      },
+      {
+        id: 13,
+        name: 'Oyuncak',
+        subCategories: [
+          { id: 131, name: 'Eğitici Oyuncaklar' },
+          { id: 132, name: 'Peluş Oyuncaklar' },
+          { id: 133, name: 'Akülü Araba' }
+        ]
+      }
+    ]
+  },
+  { 
+    id: 8, 
+    name: 'Ev & Mobilya',
+    iconUrl: 'https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/armchair.svg',
+    imageUrl: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=300&auto=format&fit=crop',
+    subCategories: [
+      {
+        id: 81,
+        name: 'Mobilya',
+        subCategories: [
+          { id: 811, name: 'Koltuk Takımı' },
+          { id: 812, name: 'Çalışma Masası' },
+          { id: 813, name: 'Kitaplık' },
+          { id: 814, name: 'Yatak & Baza' }
+        ]
+      },
+      {
+        id: 82,
+        name: 'Ev Tekstili',
+        subCategories: [
+          { id: 821, name: 'Nevresim Takımı' },
+          { id: 822, name: 'Yastık & Yorgan' },
+          { id: 823, name: 'Halı & Kilim' },
+          { id: 824, name: 'Perde' }
+        ]
+      },
+      {
+        id: 83,
+        name: 'Mutfak',
+        subCategories: [
+          { id: 831, name: 'Tencere & Tava Seti' },
+          { id: 832, name: 'Yemek Takımı' },
+          { id: 833, name: 'Bıçak Seti' }
+        ]
+      }
+    ]
+  },
+  { 
+    id: 15, 
+    name: 'Süpermarket',
+    iconUrl: 'https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/shopping-cart.svg',
+    imageUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=300&auto=format&fit=crop',
+    subCategories: [
+      {
+        id: 151,
+        name: 'Temel Gıda',
+        subCategories: [
+          { id: 1511, name: 'Sıvı Yağ' },
+          { id: 1512, name: 'Bakliyat' },
+          { id: 1513, name: 'Un & Şeker' },
+          { id: 1514, name: 'Makarna' }
+        ]
+      },
+      {
+        id: 152,
+        name: 'Deterjan & Temizlik',
+        subCategories: [
+          { id: 1521, name: 'Çamaşır Deterjanı' },
+          { id: 1522, name: 'Bulaşık Tableti' },
+          { id: 1523, name: 'Yüzey Temizleyici' }
+        ]
+      }
+    ]
+  },
+  { 
+    id: 9, 
+    name: 'Kozmetik',
+    iconUrl: 'https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/sparkles.svg',
+    imageUrl: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=300&auto=format&fit=crop',
+    subCategories: [
+      {
+        id: 91,
+        name: 'Parfüm & Deodorant',
+        subCategories: [
+          { id: 911, name: 'Kadın Parfüm' },
+          { id: 912, name: 'Erkek Parfüm' },
+          { id: 913, name: 'Deodorant & Roll-on' }
+        ]
+      },
+      {
+        id: 92,
+        name: 'Cilt Bakımı',
+        subCategories: [
+          { id: 921, name: 'Yüz Serumu' },
+          { id: 922, name: 'Nemlendirici Krem' },
+          { id: 923, name: 'Güneş Kremi' }
+        ]
+      },
+      {
+        id: 93,
+        name: 'Makyaj',
+        subCategories: [
+          { id: 931, name: 'Ruj' },
+          { id: 932, name: 'Fondöten' },
+          { id: 933, name: 'Maskara' }
+        ]
+      }
+    ]
+  },
+  { 
+    id: 18, 
+    name: 'Ayakkabı & Çanta',
+    iconUrl: 'https://cdn.jsdelivr.net/npm/@tabler/icons@latest/icons/outline/shoe.svg',
+    imageUrl: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=300&auto=format&fit=crop',
+    subCategories: [
+      {
+        id: 181,
+        name: 'Kadın Ayakkabı',
+        subCategories: [
+          { id: 1811, name: 'Sneaker' },
+          { id: 1812, name: 'Topuklu Ayakkabı' },
+          { id: 1813, name: 'Bot & Çizme' }
+        ]
+      },
+      {
+        id: 182,
+        name: 'Erkek Ayakkabı',
+        subCategories: [
+          { id: 1821, name: 'Sneaker' },
+          { id: 1822, name: 'Klasik Ayakkabı' },
+          { id: 1823, name: 'Bot' }
+        ]
+      },
+      {
+        id: 183,
+        name: 'Çanta',
+        subCategories: [
+          { id: 1831, name: 'Sırt Çantası' },
+          { id: 1832, name: 'Omuz Çantası' },
+          { id: 1833, name: 'Cüzdan' }
+        ]
+      }
+    ]
+  },
+  { 
+    id: 5, 
+    name: 'Elektronik',
+    iconUrl: 'https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/monitor.svg',
+    imageUrl: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?q=80&w=300&auto=format&fit=crop',
+    subCategories: [
+      {
+        id: 119,
+        name: 'Bilgisayar & Tablet',
+        subCategories: [
+          { id: 1191, name: 'Dizüstü Bilgisayar' },
+          { id: 1192, name: 'Tablet' },
+          { id: 1193, name: 'Oyuncu Bilgisayarı' },
+          { id: 1194, name: 'Monitör' }
+        ]
+      },
+      {
+        id: 62,
+        name: 'Telefon & Aksesuar',
+        subCategories: [
+          { id: 621, name: 'Akıllı Telefon' },
+          { id: 622, name: 'Telefon Kılıfı' },
+          { id: 623, name: 'Hızlı Şarj Aleti' }
+        ]
+      },
+      {
+        id: 72,
+        name: 'Kulaklık & Ses',
+        subCategories: [
+          { id: 721, name: 'Bluetooth Kulaklık' },
+          { id: 722, name: 'Kulaküstü Kulaklık' },
+          { id: 723, name: 'Bluetooth Hoparlör' }
+        ]
+      },
+      {
+        id: 32,
+        name: 'Beyaz Eşya',
+        subCategories: [
+          { id: 321, name: 'Buzdolabı' },
+          { id: 322, name: 'Çamaşır Makinesi' },
+          { id: 323, name: 'Bulaşık Makinesi' }
+        ]
+      }
+    ]
+  },
+  { 
+    id: 13, 
+    name: 'Spor & Outdoor',
+    iconUrl: 'https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/dumbbell.svg',
+    imageUrl: 'https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=300&auto=format&fit=crop',
+    subCategories: [
+      {
+        id: 131,
+        name: 'Fitness & Salon',
+        subCategories: [
+          { id: 1311, name: 'Dambıl & Ağırlık' },
+          { id: 1312, name: 'Yoga Matı' },
+          { id: 1313, name: 'Direnç Bandı' }
+        ]
+      },
+      {
+        id: 132,
+        name: 'Kamp & Doğa',
+        subCategories: [
+          { id: 1321, name: 'Çadır' },
+          { id: 1322, name: 'Uyku Tulumu' },
+          { id: 1323, name: 'Termos' },
+          { id: 1324, name: 'Kamp Sandalyesi' }
+        ]
+      },
+      {
+        id: 133,
+        name: 'Spor Giyim',
+        subCategories: [
+          { id: 1331, name: 'Koşu Ayakkabısı' },
+          { id: 1332, name: 'Spor Tişört' },
+          { id: 1333, name: 'Eşofman Altı' }
+        ]
+      }
     ]
   },
   { 
     id: 2, 
-    name: 'Giyim',
-    imageUrl: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=200&auto=format&fit=crop',
+    name: 'Kitap & Kırtasiye & Hobi',
+    iconUrl: 'https://cdn.jsdelivr.net/npm/lucide-static@latest/icons/book-open.svg',
+    imageUrl: 'https://images.unsplash.com/photo-1495640388908-05fd9218f705?q=80&w=300&auto=format&fit=crop',
     subCategories: [
-      { id: 201, name: "Erkek Giyim" },
-      { id: 202, name: "Kadın Giyim" },
-      { id: 203, name: "Çocuk Giyim" },
-      { id: 204, name: 'Ayakkabı & Çanta' }
+      {
+        id: 21,
+        name: 'Kitaplar',
+        subCategories: [
+          { id: 211, name: 'Edebiyat & Roman' },
+          { id: 212, name: 'Kişisel Gelişim' },
+          { id: 213, name: 'Tarih & Felsefe' },
+          { id: 214, name: 'Çocuk Kitapları' }
+        ]
+      },
+      {
+        id: 22,
+        name: 'Kırtasiye',
+        subCategories: [
+          { id: 221, name: 'Defterler' },
+          { id: 222, name: 'Kalem Setleri' },
+          { id: 223, name: 'Ajanda & Planlayıcı' }
+        ]
+      },
+      {
+        id: 23,
+        name: 'Hobi & Oyun',
+        subCategories: [
+          { id: 231, name: 'Puzzle' },
+          { id: 232, name: 'Kutu Oyunları' },
+          { id: 233, name: 'Maket & Model' }
+        ]
+      }
     ]
-  },
-  { 
-    id: 3, 
-    name: 'Spor',
-    imageUrl: 'https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=200&auto=format&fit=crop',
-    subCategories: [
-      { id: 301, name: 'Fitness & Salon' },
-      { id: 302, name: 'Kamp & Doğa' },
-      { id: 303, name: 'Bisiklet' }
-    ]
-  },
-  { id: 4, name: 'Kozmetik', imageUrl: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=200&auto=format&fit=crop' },
-  { id: 5, name: 'Kitaplar', imageUrl: 'https://images.unsplash.com/photo-1495640388908-05fd9218f705?q=80&w=200&auto=format&fit=crop' },
-  { id: 6, name: 'Anne & Bebek', imageUrl: 'https://images.unsplash.com/photo-1519689680058-324335c77eba?q=80&w=200&auto=format&fit=crop' },
-  { id: 7, name: 'Süpermarket', imageUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=200&auto=format&fit=crop' },
-  { id: 8, name: 'Oyuncak', imageUrl: 'https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?q=80&w=200&auto=format&fit=crop' },
-  { id: 9, name: 'Mobilya', imageUrl: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=200&auto=format&fit=crop' },
-  { id: 10, name: 'Otomotiv', imageUrl: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=200&auto=format&fit=crop' },
+  }
 ];
 
 export const SLIDER_ITEMS: SliderItem[] = [

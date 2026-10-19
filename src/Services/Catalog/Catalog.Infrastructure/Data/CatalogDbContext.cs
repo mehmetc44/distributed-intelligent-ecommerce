@@ -32,6 +32,9 @@ public class CatalogDbContext : DbContext
             builder.Property(c => c.FullPath).HasColumnName("full_path").IsRequired();
             builder.Property(c => c.TrendyolCatId).HasColumnName("trendyol_cat_id");
             builder.Property(c => c.IsLeaf).HasColumnName("is_leaf").HasDefaultValue(false);
+            builder.Property(c => c.ImageUrl).HasColumnName("image_url");
+            builder.Property(c => c.IconUrl).HasColumnName("icon_url");
+            builder.Property(c => c.IconSvg).HasColumnName("icon_svg");
             builder.Property(c => c.Embedding)
                    .HasColumnName("embedding")
                    .HasColumnType("vector")

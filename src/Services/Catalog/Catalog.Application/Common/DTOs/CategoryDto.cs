@@ -8,5 +8,7 @@ public record CategoryDto(
     string FullPath,
     bool? IsLeaf,
     string? ImageUrl = null,
+    string? IconUrl = null,
+    string? IconSvg = null,
     List<CategoryDto>? SubCategories = null
 );

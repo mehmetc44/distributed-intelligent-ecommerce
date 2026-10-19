@@ -33,7 +33,9 @@ public class GetCategoryByIdQueryHandler : IRequestHandler<GetCategoryByIdQuery,
             c.Level,
             c.FullPath,
             c.IsLeaf,
-            CategoryImageMapper.GetImageUrl(c.Name)
+            c.ImageUrl ?? CategoryImageMapper.GetImageUrl(c.Name),
+            c.IconUrl,
+            c.IconSvg
         )).ToList();
 
         return new CategoryDto(
@@ -43,7 +45,9 @@ public class GetCategoryByIdQueryHandler : IRequestHandler<GetCategoryByIdQuery,
             category.Level,
             category.FullPath,
             category.IsLeaf,
-            CategoryImageMapper.GetImageUrl(category.Name),
+            category.ImageUrl ?? CategoryImageMapper.GetImageUrl(category.Name),
+            category.IconUrl,
+            category.IconSvg,
             subCategoryDtos
         );
     }

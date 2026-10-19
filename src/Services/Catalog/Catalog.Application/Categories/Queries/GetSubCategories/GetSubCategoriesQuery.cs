@@ -27,7 +27,9 @@ public class GetSubCategoriesQueryHandler : IRequestHandler<GetSubCategoriesQuer
             c.Level,
             c.FullPath,
             c.IsLeaf,
-            CategoryImageMapper.GetImageUrl(c.Name)
+            c.ImageUrl ?? CategoryImageMapper.GetImageUrl(c.Name),
+            c.IconUrl,
+            c.IconSvg
         )).ToList();
     }
 }

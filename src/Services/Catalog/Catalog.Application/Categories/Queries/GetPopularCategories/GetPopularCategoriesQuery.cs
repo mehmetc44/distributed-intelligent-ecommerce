@@ -51,7 +51,9 @@ public class GetPopularCategoriesQueryHandler : IRequestHandler<GetPopularCatego
                     matched.Level,
                     matched.FullPath,
                     matched.IsLeaf,
-                    CategoryImageMapper.GetImageUrl(matched.Name)
+                    matched.ImageUrl ?? CategoryImageMapper.GetImageUrl(matched.Name),
+                    matched.IconUrl,
+                    matched.IconSvg
                 ));
             }
 
@@ -75,7 +77,9 @@ public class GetPopularCategoriesQueryHandler : IRequestHandler<GetPopularCatego
                         root.Level,
                         root.FullPath,
                         root.IsLeaf,
-                        CategoryImageMapper.GetImageUrl(root.Name)
+                        root.ImageUrl ?? CategoryImageMapper.GetImageUrl(root.Name),
+                        root.IconUrl,
+                        root.IconSvg
                     ));
                 }
 

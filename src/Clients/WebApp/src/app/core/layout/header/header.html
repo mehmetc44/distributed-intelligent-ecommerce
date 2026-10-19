@@ -39,16 +39,217 @@
     </div>
   </div>
   
+  <!-- Üst Kategori Navigasyon Barı (Root Kategoriler + Çekmeceli Daha Fazla) -->
   <nav class="navbar">
-    <div class="container">
+    <div class="container navbar-container">
       <ul class="nav-links">
-        <li><a [routerLink]="['/products']">Tüm Ürünler</a></li>
-        <li><a [routerLink]="['/products']" [queryParams]="{ category: 'Elektronik' }">Elektronik</a></li>
-        <li><a [routerLink]="['/products']" [queryParams]="{ category: 'Giyim' }">Giyim & Moda</a></li>
-        <li><a [routerLink]="['/products']" [queryParams]="{ category: 'Pantolon' }">Pantolon</a></li>
-        <li><a [routerLink]="['/products']" [queryParams]="{ category: 'Spor' }">Spor</a></li>
-        <li><a [routerLink]="['/products']" [queryParams]="{ category: 'Kitaplar' }">Kitaplar</a></li>
+        <li><a [routerLink]="['/products']" class="nav-link-item">Tüm Ürünler</a></li>
+        @for (cat of navbarCategories; track cat.id) {
+          <li>
+            <a 
+              [routerLink]="['/products']" 
+              [queryParams]="{ category: cat.name }" 
+              class="nav-link-item"
+            >
+              {{ cat.name }}
+            </a>
+          </li>
+        }
+        
+        <!-- Çekmeceli / Mega Menü "Daha Fazla" Butonu -->
+        <li class="nav-drawer-item">
+          <button 
+            type="button" 
+            class="drawer-toggle-btn" 
+            [class.active]="isCategoryDrawerOpen"
+            (click)="toggleCategoryDrawer()"
+            id="all-categories-drawer-btn"
+            aria-label="Tüm kategorileri göster"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="drawer-grid-icon">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span class="btn-text">Daha Fazla</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon" [class.rotated]="isCategoryDrawerOpen">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+        </li>
       </ul>
     </div>
   </nav>
+
+  <!-- Kategori Çekmecesi / Mega Menü Modal (2. Görsel Birebir Tasarım) -->
+  @if (isCategoryDrawerOpen) {
+    <div class="mega-drawer-backdrop" (click)="closeCategoryDrawer()">
+      <div class="mega-drawer-card container" (click)="$event.stopPropagation()">
+        
+        <!-- Çekmece Üst Başlık & Arama Çubuğu -->
+        <div class="drawer-header-bar">
+          <div class="drawer-header-title">
+            <span class="drawer-badge-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+            </span>
+            <div>
+              <h2 class="drawer-title">Tüm Kategoriler</h2>
+              <span class="drawer-subtitle">İhtiyacınız olan ürün grubunu kategorilerden seçin</span>
+            </div>
+          </div>
+
+          <!-- Kategori İçinde Hızlı Arama -->
+          <div class="drawer-search-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-mini-icon">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input 
+              type="text" 
+              placeholder="Kategori içinde ara..." 
+              [(ngModel)]="drawerSearch"
+              name="drawerSearch"
+              class="drawer-search-input"
+            />
+            @if (drawerSearch) {
+              <button type="button" class="clear-search-btn" (click)="drawerSearch = ''">✕</button>
+            }
+          </div>
+
+          <!-- Kapatma Butonu -->
+          <button type="button" class="drawer-close-btn" (click)="closeCategoryDrawer()" aria-label="Çekmeceyi kapat">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Çekmece Gövdesi: Sol Ana Kategoriler + Sağ Alt Kategori Grid'i -->
+        <div class="drawer-body">
+          
+          <!-- Sol Sidebar: Ana Kategoriler Listesi -->
+          <aside class="drawer-roots-sidebar">
+            <ul class="roots-nav-list">
+              @for (root of filteredCategories; track root.id) {
+                <li 
+                  class="root-nav-item" 
+                  [class.active]="activeRootCategory?.id === root.id"
+                  (mouseenter)="selectRoot(root)"
+                  (click)="selectRoot(root)"
+                >
+                  <div class="root-item-info">
+                    <span class="root-item-icon">
+                      @if (root.iconSvg) {
+                        <span class="dynamic-svg-icon" [innerHTML]="getSanitizedSvg(root.iconSvg)"></span>
+                      } @else if (root.iconUrl) {
+                        <span class="category-mask-icon" [style.-webkit-mask-image]="getIconMaskStyle(root.iconUrl)" [style.mask-image]="getIconMaskStyle(root.iconUrl)"></span>
+                      } @else {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><circle cx="7" cy="7" r=".5" fill="currentColor"/></svg>
+                      }
+                    </span>
+                    <span class="root-item-name">{{ root.name }}</span>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="root-chevron-icon">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </li>
+              }
+            </ul>
+          </aside>
+
+          <!-- Sağ Panel: Seçili Ana Kategorinin Alt Grupları & Çocukları -->
+          <main class="drawer-subcategories-panel">
+            @if (activeRootCategory) {
+              
+              <!-- Seçili Kategori Başlık Barı -->
+              <div class="panel-banner-bar">
+                <div class="panel-banner-text">
+                  <h3 class="active-category-title">{{ activeRootCategory.name }}</h3>
+                  <span class="active-category-count">
+                    {{ activeRootCategory.subCategories?.length || 0 }} ana grup listeleniyor
+                  </span>
+                </div>
+                <button 
+                  type="button" 
+                  class="panel-view-all-btn"
+                  (click)="navigateToCategory(activeRootCategory.name)"
+                >
+                  <span>{{ activeRootCategory.name }} Tümünü Keşfet</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
+
+              <!-- Alt Kategori Grupları Çok Sütunlu Grid (2. Görseldeki Kolonlar) -->
+              @if (activeRootCategory.subCategories && activeRootCategory.subCategories.length > 0) {
+                <div class="subcategories-columns-grid">
+                  @for (subGroup of activeRootCategory.subCategories; track subGroup.id) {
+                    <div class="subcategory-column-block">
+                      
+                      <!-- Seviye 2 Başlık: Turuncu renk ve sağında '>' oku -->
+                      <a 
+                        class="subgroup-title-link"
+                        (click)="navigateToCategory(subGroup.name)"
+                        role="button"
+                        tabindex="0"
+                      >
+                        <span class="subgroup-title">{{ subGroup.name }}</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="subgroup-chevron">
+                          <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                      </a>
+
+                      <!-- Seviye 3 Alt Elemanlar Listesi -->
+                      @if (subGroup.subCategories && subGroup.subCategories.length > 0) {
+                        <ul class="leaf-items-list">
+                          @for (leaf of subGroup.subCategories; track leaf.id) {
+                            <li class="leaf-item">
+                              <a 
+                                (click)="navigateToCategory(leaf.name)" 
+                                class="leaf-link"
+                              >
+                                {{ leaf.name }}
+                              </a>
+                            </li>
+                          }
+                        </ul>
+                      }
+
+                      <!-- Doğrudan grubun tümünü inceleme linki -->
+                      <a 
+                        (click)="navigateToCategory(subGroup.name)" 
+                        class="show-more-link"
+                      >
+                        Daha Fazla Gör ▾
+                      </a>
+
+                    </div>
+                  }
+                </div>
+              } @else {
+                <div class="no-subcategories">
+                  <p>Bu kategori için alt başlıklar doğrudan listelenmektedir.</p>
+                  <button type="button" class="btn-explore-root" (click)="navigateToCategory(activeRootCategory.name)">
+                    Koleksiyonu Gör →
+                  </button>
+                </div>
+              }
+
+            }
+          </main>
+
+        </div>
+
+      </div>
+    </div>
+  }
 </header>
